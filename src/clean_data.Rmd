@@ -1,0 +1,40 @@
+Import Data
+```{r}
+student_data <- read.csv("/cloud/project/data_raw/StudentsPerformance.csv")
+str(student_data)
+```
+Verify no null values
+```{r}
+colSums(is.na(student_data))
+```
+Change column names to snake case
+```{r}
+student_data <- rename(student_data, 
+                       race_ethnicity = race.ethnicity, 
+                       parental_level_of_education = parental.level.of.education, 
+                       test_preparation_course = test.preparation.course,
+                       math_score = math.score,
+                       reading_score = reading.score,
+                       writing_score = writing.score
+)
+```
+
+Create boxplots of scores to quickly visualize/understand data, identify (possibly incorrect) outliers
+```{r}
+boxplot(student_data$math_score, main = "Math Score", horizontal = TRUE)
+boxplot(student_data$reading_score, main = "Reading Score",horizontal = TRUE)
+boxplot(student_data$writing_score, main = "Writing Score",horizontal = TRUE)
+```
+Look at entries for all chr values to verify no misspellings/incorrect input
+```{r}
+table(student_data$gender)
+table(student_data$race_ethnicity)
+table(student_data$parental_level_of_education)
+table(student_data$lunch)
+table(student_data$test_preparation_course)
+```
+Export clean data to data_clean folder
+```{r}
+write.csv(student_data, file="/cloud/project/data_clean/clean_data.csv")
+```
+

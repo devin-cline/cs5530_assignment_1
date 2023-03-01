@@ -1,0 +1,34 @@
+Import data
+```{r}
+clean_student_data <- read.csv("/cloud/project/data_clean/clean_data.csv")
+```
+
+Create boxplots to look at scores grouped by whether taken test prep course
+```{r}
+boxplot(clean_student_data$math_score ~ clean_student_data$test_preparation_course, main="Test Prep Course and Math Scores", xlab="Math Score", ylab="Test Prep Course", horizontal=TRUE, outline=FALSE)
+
+boxplot(clean_student_data$reading_score ~ clean_student_data$test_preparation_course, main="Test Prep Course and Reading Scores", xlab="Reading Score", ylab="Test Prep Course", horizontal=TRUE, outline=FALSE)
+
+boxplot(clean_student_data$writing_score ~ clean_student_data$test_preparation_course, main="Test Prep Course and Writing Scores", xlab="Writing Score", ylab="Test Prep Course", horizontal=TRUE, outline=FALSE)
+```
+Visualizing proportions of race/ethnic groups who complete test prep course
+reference: https://stackoverflow.com/questions/70848878/how-to-display-number-of-cases-per-group-in-a-stacked-bar-plot
+```{r}
+ggplot(clean_student_data, aes(race_ethnicity))+
+  geom_bar(position="fill", stat="count", aes(fill=test_preparation_course))+
+  theme(axis.text.x = element_text(angle=45))
+```
+create table of race_ethnicity to see distribution
+this data can be very easily visualized in excel
+```{r}
+table(clean_student_data$race_ethnicity)
+```
+
+```{r}
+boxplot(clean_student_data$math_score ~ clean_student_data$race_ethnicity, main="Math Scores and Race/Ethnicity", xlab="Math Score", ylab="", horizontal=TRUE, outline=FALSE, las=2)
+
+boxplot(clean_student_data$reading_score ~ clean_student_data$race_ethnicity, main="Reading Scores and Race/Ethnicity", xlab="Reading Score", ylab="", horizontal=TRUE, outline=FALSE, las=2)
+
+boxplot(clean_student_data$writing_score ~ clean_student_data$race_ethnicity, main="Writing Scores and Race/Ethnicity", xlab="Writing Score", ylab="", horizontal=TRUE, outline=FALSE, las=2)
+```
+
